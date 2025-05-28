@@ -11,18 +11,14 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white w-full border-b md:border-0">
-      <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8 flex-row">
+    <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8 flex-row">
         <div className="flex items-center justify-between py-3 md:py-5 md:block">
           <div>
             <p>Explore Task</p>
           </div>
-          <div className="md:hidden">
-            
-          </div>
+          
         </div>
-        <div
-          className= "flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 flex-row"
-        >
+        <div className= "flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 flex-row">
           <div className="z-50 left-2 w-12 h-10 items-start pt-3 ">
            <Image
                       src="/notification.svg" 
@@ -42,20 +38,55 @@ export default function Navbar() {
                       width={50}
                       height={50}
                       unoptimized
-                      className="w-18 h-1  rounded-full bg-white "
+                      className="w-10 h-10  rounded-full bg-white "
                    //   onClick={() => setIsOpen((s) => !s)}
                     />
 
           </div>
         </div>
-        <form className="flex items-center  space-x-2 border rounded-md p-2">
+
+       <div className="flex">
+        <div className="flex items-center  space-x-2 border rounded-md p-2">
               <Search className="h-5 w-5 flex-none text-gray-300" />
               <input
                 className="w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto"
                 type="text"
                 placeholder="Search"
               />
-            </form>
+            </div>
+
+            <div>
+                <div>
+                    <Image
+                      src="category.svg" 
+                      alt="home-menu"
+                      width={30}
+                      height={30}
+                      unoptimized
+                      className="w-7 h-7 rounded bg-white "
+                   //   onClick={() => setIsOpen((s) => !s)}
+                    />
+          <p>category</p>
+                </div> 
+               <div>
+                <Image
+                      src="sort.svg" 
+                      alt="home-menu"
+                      width={30}
+                      height={30}
+                      unoptimized
+                      className="w-7 h-7 rounded bg-white "
+                   //   onClick={() => setIsOpen((s) => !s)}
+                    />
+                <p>
+                    
+                    filter
+                </p>
+
+               </div>
+            </div>
+
+            </div>
       </div>
     </nav>
   )
