@@ -1,93 +1,88 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { Menu, Search } from "lucide-react"
+import * as React from "react";
+import Link from "next/link";
+import { Menu, Search } from "lucide-react";
 import Image from "next/image";
+import { Button } from "../button/button";
 
 export default function Navbar() {
-  const [state, setState] = React.useState(false)
-
+  const [state, setState] = React.useState(false);
+  const onNotificationClick = {};
 
   return (
-    <nav className="bg-white w-full border-b md:border-0">
-    <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8 flex-row">
-        <div className="flex items-center justify-between py-3 md:py-5 md:block">
-          <div>
-            <p>Explore Task</p>
-          </div>
-          
-        </div>
-        <div className= "flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 flex-row">
-          <div className="z-50 left-2 w-12 h-10 items-start pt-3 ">
-           <Image
-                      src="/notification.svg" 
-                      alt="home-menu"
-                      width={40}
-                      height={40}
-                      unoptimized
-                      className="w-7 h-7 p-1.5 rounded-lg bg-white mt-3 mx-2"
-                   //   onClick={() => setIsOpen((s) => !s)}
-                    />
-
-          </div>
-           <div className="  items-start pt-3 ">
-           <Image
-                      src="/images/profilepic.png" 
-                      alt="home-menu"
-                      width={50}
-                      height={50}
-                      unoptimized
-                      className="w-10 h-10  rounded-full bg-white "
-                   //   onClick={() => setIsOpen((s) => !s)}
-                    />
-
-          </div>
-        </div>
-
-       <div className="flex">
-        <div className="flex items-center  space-x-2 border rounded-md p-2">
-              <Search className="h-5 w-5 flex-none text-gray-300" />
-              <input
-                className="w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto"
-                type="text"
-                placeholder="Search"
+    <nav className="bg-white w-full border-b">
+      <div className="bg-white  ">
+        <div className="mx-auto max-w-6xl py-3 px-4 flex flex-col lg:flex-row items-center justify-between">
+          <p className="text-xs font-base  text-gray-900 sm:text-4xl">
+            {/* {title} */} Explore Task
+          </p>
+          <div className="mt-3 lg:mt-0 flex space-x-3">
+            <Button
+              //onClick={onNotificationClick}
+              className="rounded-full bg-white "
+            >
+              <Image
+                src="/notification.svg"
+                alt="notification"
+                width={30}
+                height={30}
+                unoptimized
+                className="w-6 h-6"
               />
-            </div>
+            </Button>
+            <Button 
+           // onClick={onProfileClick} 
+            className="rounded-full bg-white">
+              <Image
+                src="/images/profilepic.png"
+                alt="profile"
+                width={30}
+                height={30}
+                unoptimized
+                className="w-8 h-8 rounded-full"
+              />
+            </Button>
+          </div>
+        </div>
+      </div>
 
-            <div>
-                <div>
-                    <Image
-                      src="category.svg" 
-                      alt="home-menu"
-                      width={30}
-                      height={30}
-                      unoptimized
-                      className="w-7 h-7 rounded bg-white "
-                   //   onClick={() => setIsOpen((s) => !s)}
-                    />
-          <p>category</p>
-                </div> 
-               <div>
-                <Image
-                      src="sort.svg" 
-                      alt="home-menu"
-                      width={30}
-                      height={30}
-                      unoptimized
-                      className="w-7 h-7 rounded bg-white "
-                   //   onClick={() => setIsOpen((s) => !s)}
-                    />
-                <p>
-                    
-                    filter
-                </p>
+      <div className="px-4 py-4 max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-6">
+        <div className="w-full md:w-1/2 flex items-center border rounded-md p-2 bg-white">
+          <Search className="h-5 w-5 text-gray-400 mr-2" />
+          <input
+            type="text"
+            placeholder="Search Task"
+            className="w-full outline-none placeholder-gray-500 text-gray-700"
+          />
+        </div>
 
-               </div>
-            </div>
+        <div className="flex space-x-10 items-center">
+          <div className="hidden md:flex flex-row gap-2.5 items-center shadow p-2 rounded-sm ">
+            <Image
+              src="/category.svg"
+              alt="category"
+              width={30}
+              height={30}
+              unoptimized
+              className="w-5 h-5 bg-white rounded"
+            />
+            <p className="text-base ">Category</p>
+          </div>
 
-            </div>
+          <div className="flex first-line:flex-row gap-2.5 items-center shadow p-2 rounded-sm ">
+            <Image
+              src="/sort.svg"
+              alt="sort"
+              width={30}
+              height={30}
+              unoptimized
+              className="w-7 h-7 bg-white rounded"
+            />
+            <p className="text-sm">Sort</p>
+          </div>
+        </div>
       </div>
     </nav>
-  )
+  );
 }
