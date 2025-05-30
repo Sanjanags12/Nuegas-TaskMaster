@@ -1,88 +1,92 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { Menu, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../button/button";
 
-export default function Navbar() {
-  const [state, setState] = React.useState(false);
-  const onNotificationClick = {};
+type NavbarProps = {
+  title?: string;
+  searchPlaceholder?: string;
+};
 
+const Navbar: React.FC<NavbarProps> = ({
+  title = "Explore Task",
+  searchPlaceholder = "Search Task",
+}) => {
   return (
     <nav className="bg-white w-full border-b">
-      <div className="bg-white  ">
-        <div className="mx-auto max-w-6xl py-3 px-4 flex flex-col lg:flex-row items-center justify-between">
-          <p className="text-xs font-base  text-gray-900 sm:text-4xl">
-            {/* {title} */} Explore Task
-          </p>
-          <div className="mt-3 lg:mt-0 flex space-x-3">
-            <Button
-              //onClick={onNotificationClick}
-              className="rounded-full bg-white "
-            >
-              <Image
-                src="/notification.svg"
-                alt="notification"
-                width={30}
-                height={30}
-                unoptimized
-                className="w-6 h-6"
-              />
-            </Button>
-            <Button 
-           // onClick={onProfileClick} 
-            className="rounded-full bg-white">
-              <Image
-                src="/images/profilepic.png"
-                alt="profile"
-                width={30}
-                height={30}
-                unoptimized
-                className="w-8 h-8 rounded-full"
-              />
-            </Button>
-          </div>
+      {/* Top Section */}
+      <div className="max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center">
+        <p className="text-xl sm:text-2xl font-medium text-gray-900">{title}</p>
+
+        <div className="flex items-center gap-3 w-auto h-[52px]">
+          <Button className="rounded-full bg-white p-2">
+            <Image
+              src="/notification.svg"
+              alt="notification"
+              width={20}
+              height={20}
+              unoptimized
+              className="w-5 h-5"
+            />
+          </Button>
+          <Button className="rounded-full bg-white p-2">
+            <Image
+              src="/images/profilepic.png"
+              alt="profile"
+              width={30}
+              height={30}
+              unoptimized
+              className="w-8 h-8 rounded-full object-cover"
+            />
+          </Button>
         </div>
       </div>
 
-      <div className="px-4 py-4 max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-6">
-        <div className="w-full md:w-1/2 flex items-center border rounded-md p-2 bg-white">
-          <Search className="h-5 w-5 text-gray-400 mr-2" />
+      {/* Bottom Section */}
+      <div className="max-w-screen-xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        {/* Search Bar */}
+        <div className="flex items-center w-full sm:max-w-md bg-white border border-gray-300 rounded-lg px-4 py-2">
           <input
             type="text"
-            placeholder="Search Task"
-            className="w-full outline-none placeholder-gray-500 text-gray-700"
+            placeholder={searchPlaceholder}
+            className="w-full outline-none placeholder-gray-500 text-gray-700 text-sm"
           />
+          <Search className="h-5 w-5 text-gray-400 ml-2" />
         </div>
 
-        <div className="flex space-x-10 items-center">
-          <div className="hidden md:flex flex-row gap-2.5 items-center shadow p-2 rounded-sm ">
+        {/* Category & Sort Group */}
+        <div className="flex gap-4 sm:gap-6 items-center">
+          {/* Category - Hidden on mobile */}
+          <div className="hidden sm:flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 bg-white shadow-sm">
             <Image
               src="/category.svg"
               alt="category"
-              width={30}
-              height={30}
+              width={20}
+              height={20}
               unoptimized
-              className="w-5 h-5 bg-white rounded"
+              className="w-5 h-5"
             />
-            <p className="text-base ">Category</p>
+            <p className="text-sm">Category</p>
           </div>
 
-          <div className="flex first-line:flex-row gap-2.5 items-center shadow p-2 rounded-sm ">
+          {/* Sort */}
+          <div className="flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 bg-white shadow-sm">
             <Image
               src="/sort.svg"
               alt="sort"
-              width={30}
-              height={30}
+              width={20}
+              height={20}
               unoptimized
-              className="w-7 h-7 bg-white rounded"
+              className="w-5 h-5"
             />
-            <p className="text-sm">Sort</p>
+            <p className="text-sm">Sort By: Deadline</p>
           </div>
         </div>
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
