@@ -58,7 +58,8 @@ const Navbar: React.FC<NavbarProps> = ({
 
         <div className="flex gap-4 sm:gap-6 items-center">
           
-          <div className="hidden sm:flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 bg-white shadow-sm">
+          <div className="hidden sm:flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 bg-white shadow-sm"
+          >
             <Image
               src="/category.svg"
               alt="category"
