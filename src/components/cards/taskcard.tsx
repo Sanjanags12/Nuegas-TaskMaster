@@ -36,7 +36,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
         </div>
       </div>
 
-      {/* Progress Bar */}
+   
       <div className="mb-4 mt-2">
         <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
             
@@ -51,9 +51,9 @@ const TaskCard: React.FC<TaskCardProps> = ({
             {percentage}% </div>
       </div>
 
-      {/* Footer: Time + Team */}
+     
       <div className="flex justify-between items-center pt-2 border-t mt-2">
-        <div className="flex items-center text-gray-500 text-xs">
+        <div className="flex items-center text-secondary-400 text-xs">
           <Clock className="w-4 h-4 mr-1" />
           {time}
         </div>

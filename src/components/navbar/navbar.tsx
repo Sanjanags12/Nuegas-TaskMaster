@@ -20,8 +20,8 @@ const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center">
         <p className="text-xl sm:text-2xl font-medium text-gray-900">{title}</p>
 
-        <div className="flex items-center gap-3 w-auto h-[52px]">
-          <Button className="rounded-full bg-white p-2">
+        <div className="flex items-center gap-3 w-auto ">
+          <Button className="rounded-full bg-white hover:bg-secondary-100 p-2">
             <Image
               src="/notification.svg"
               alt="notification"
@@ -31,20 +31,20 @@ const Navbar: React.FC<NavbarProps> = ({
               className="w-5 h-5"
             />
           </Button>
-          <Button className="rounded-full bg-white p-2">
+          <div className=" bg-white hover:shadow-lg rounded-full border">
             <Image
               src="/images/profilepic.png"
               alt="profile"
               width={30}
               height={30}
               unoptimized
-              className="w-8 h-8 rounded-full object-cover"
+              className="w-7 h-7 rounded-full object-cover"
             />
-          </Button>
+          </div>
         </div>
       </div>
 
-      {/* Bottom Section */}
+    
       <div className="max-w-screen-xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         {/* Search Bar */}
         <div className="flex items-center w-full sm:max-w-md bg-white border border-gray-300 rounded-lg px-4 py-2">
@@ -56,9 +56,8 @@ const Navbar: React.FC<NavbarProps> = ({
           <Search className="h-5 w-5 text-gray-400 ml-2" />
         </div>
 
-        {/* Category & Sort Group */}
         <div className="flex gap-4 sm:gap-6 items-center">
-          {/* Category - Hidden on mobile */}
+          
           <div className="hidden sm:flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 bg-white shadow-sm">
             <Image
               src="/category.svg"
@@ -71,7 +70,6 @@ const Navbar: React.FC<NavbarProps> = ({
             <p className="text-sm">Category</p>
           </div>
 
-          {/* Sort */}
           <div className="flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 bg-white shadow-sm">
             <Image
               src="/sort.svg"

@@ -53,7 +53,7 @@ const MentorCard: React.FC<MentorCardProps> = ({
   
       <div className="flex justify-between items-center pt-3 mt-3 ">
         <div className="flex items-center  text-secondary-400 text-sm">
-          <Tags className="w-4 h-4 mr-1" />
+          <Image className="w-4 h-4 mr-1" height={15} width={15} src="/task2.svg" alt="taskcard" />
           {tasks}
         </div>
         <div className="flex items-center text-secondary-500 text-sm">

@@ -121,7 +121,7 @@ const Task = () => {
         {/* New Tasks */}
         <div className="mt-3">
           <h2 className="text-lg font-semibold mb-2">New Tasks</h2>
-          <div className="flex gap-4 overflow-x-auto pb-4">
+          <div className="flex gap-4 overflow-y-auto pb-4">
             {newTasks.map((task, idx) => (
               <TaskCard key={`new-task-${idx}`} {...task} />
             ))}

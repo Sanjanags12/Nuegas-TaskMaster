@@ -22,7 +22,7 @@ const SideBar = () => {
           key={label}
           className="flex items-center gap-2 bg-white text-secondary-200 hover:text-black hover:bg-secondary-100 w-full py-2 px-2 rounded-md"
           onClick={() => {
-            setIsOpen(false); // auto-close sidebar on mobile after navigation
+            setIsOpen(false); 
             router.push(path);
           }}
         >
@@ -36,7 +36,7 @@ const SideBar = () => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden sm:flex flex-col gap-6 p-6 h-screen bg-white min-w-[200px] max-w-[250px] border-r overflow-y-auto">
+      <aside className="hidden sm:flex flex-col gap-6 p-6 h-screen bg-white min-w-[200px] max-w-[250px] border-r ">
         <div className="flex items-center gap-2">
           <Image
             src="/bookHome.svg"
