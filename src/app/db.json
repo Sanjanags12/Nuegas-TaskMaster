@@ -1,111 +1,97 @@
 {
-  "mentors" : [
-    
-  {
-  "profile":"/images/profilepic.png",
-  "mentorName":"Jessica Jane",
-  "designation":"Web Developer",
-  "description":"EHi, I'm Jessica Jane. I am a doctoral student at Harvard University majoring in Web . . . ",
-  "tasks":"40 Tasks",
-  "rating":4.7, 
-   "reviews" : 400
-  },
- {
-     "profile":"/images/image.png",
-  "mentorName":"Stanton",
-  "designation":"UI/UX Designer",
-  "description":"Hi, I'm Alex Stanton. I am a doctoral student at Oxford University majoring in UI / UX  . . . ",
-  "tasks":"60 Tasks",
-  "rating":4.9, 
-   "reviews" : 578
-  },
-  {
-     "profile":"/images/profilepic.png",
-  "mentorName":"Jane Doe",
-  "designation":"Senior Analyst",
-  "description":"Hi, I'm Alex Stanton. I am a doctoral student at Oxford University majoring in UI / UX  . . . ",
-  "tasks":"50 Tasks",
-  "rating":4.8,
-   "reviews" : 34
-  },
-  {
-     "profile":"/images/profilepic.png",
-  "mentorName":"Jane Doe",
-  "designation":"Senior Analyst",
-  "description":"Hi, I'm Alex Stanton. I am a doctoral student at Oxford University majoring in UI / UX  . . . ",
-  "tasks":"50 Tasks",
-  "rating":4.8,
-   "reviews" : 145
-
-  },
-  {
-     "profile":"/images/image.png",
-  "mentorName":"Jane ",
-  "designation":"Senior Analyst",
-  "description":"Hi, I'm Alex Stanton. I am a doctoral student at Oxford University majoring in UI / UX  . . . ",
-  "tasks":"50 Tasks",
-  "rating":4.8,
-   "reviews" : 234
-  },
-  {
-     "profile":"/images/profilepic.png",
-  "mentorName":"Jane Doe",
-  "designation":"Senior Analyst",
-  "description":"Hi, I'm Alex Stanton. I am a doctoral student at Oxford University majoring in UI / UX  . . . ",
-  "tasks":"50 Tasks",
-  "rating":4.8,
-  "reviews" : 345
-  }
+  "mentors": [
+    {
+      "profile": "/images/profilepic.png",
+      "mentorName": "Jessica Jane",
+      "designation": "Web Developer",
+      "description": "Hi, I'm Jessica Jane. I am a doctoral student at Harvard University majoring in Web...",
+      "tasks": "40 Tasks",
+      "rating": 4.7,
+      "reviews": 400
+    },
+    {
+      "profile": "/images/image.png",
+      "mentorName": "Stanton",
+      "designation": "UI/UX Designer",
+      "description": "Hi, I'm Alex Stanton. I am a doctoral student at Oxford University majoring in UI/UX...",
+      "tasks": "60 Tasks",
+      "rating": 4.9,
+      "reviews": 578
+    },
+    {
+      "profile": "/images/profilepic.png",
+      "mentorName": "Jane Doe",
+      "designation": "Senior Analyst",
+      "description": "Hi, I'm Jane Doe. I am a senior analyst with expertise in business intelligence...",
+      "tasks": "50 Tasks",
+      "rating": 4.8,
+      "reviews": 34
+    },
+    {
+      "profile": "/images/profilepic.png",
+      "mentorName": "Jane Doe",
+      "designation": "Senior Analyst",
+      "description": "Hi, I'm Jane Doe. I am a senior analyst with expertise in business intelligence...",
+      "tasks": "50 Tasks",
+      "rating": 4.8,
+      "reviews": 145
+    },
+    {
+      "profile": "/images/image.png",
+      "mentorName": "Jane",
+      "designation": "Senior Analyst",
+      "description": "Hi, I'm Jane. I am a senior analyst with expertise in business intelligence...",
+      "tasks": "50 Tasks",
+      "rating": 4.8,
+      "reviews": 234
+    },
+    {
+      "profile": "/images/profilepic.png",
+      "mentorName": "Jane Doe",
+      "designation": "Senior Analyst",
+      "description": "Hi, I'm Jane Doe. I am a senior analyst with expertise in business intelligence...",
+      "tasks": "50 Tasks",
+      "rating": 4.8,
+      "reviews": 345
+    }
   ],
-
-  "TimelimitTasks" : [
-  {
-    "taskName": "Design Landing Page",
-    "category": "UI/UX",
-    "image": "/images/taskimg1.png",
-    "percentage": 72,
-    "time": "3 hours",
-    "teamImages": [
-      "/images/profilepic.png",
-      "/images/profilepic.png",
-      "/images/profilepic.png"
-    ]
-  },
-  {
-    "taskName": "Fix Payment Bug",
-    "category": "Backend",
-    "image": "/images/taskimg2.png",
-    "percentage": 35,
-    "time": "1 hour",
-    "teamImages": [
-      "/images/profilepic.png",
-      "/images/profilepic.png"
-    ]
-  },
-  {
-    "taskName": "Create API Docs",
-    "category": "Documentation",
-    "image": "/images/taskimg3.png",
-    "percentage": 88,
-    "time": "2 days ",
-    "teamImages": [
-      "/images/profilepic.png"
-    ]
-  },
-  {
-    "taskName": "Create API Docs",
-    "category": "Documentation",
-    "image": "/images/taskimg5.png",
-    "percentage": 88,
-    "time": "2 days ",
-    "teamImages": [
-      "/images/profilepic.png"
-    ]
-  }
-],
- "newTasks" : [
-  
-]
-
-
+  "Tasks": [
+    {
+      "taskName": "Design Landing Page",
+      "category": "UI/UX",
+      "image": "/images/taskimg1.png",
+      "percentage": 72,
+      "time": "3 hours",
+      "description": "Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design. Starting from spacing, typography, content, and many other design hierarchies. Then try to make it yourself with your imagination and inspiration.",
+      "teamImages": ["/images/profilepic.png", "/images/profilepic.png", "/images/profilepic.png"]
+    },
+    {
+      "taskName": "Fix Payment Bug",
+      "category": "Backend",
+      "image": "/images/taskimg2.png",
+      "percentage": 35,
+      "time": "1 hour",
+      "description": "Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design. Starting from spacing, typography, content, and many other design hierarchies. Then try to make it yourself with your imagination and inspiration.",
+      "teamImages": ["/images/profilepic.png", "/images/profilepic.png"]
+    },
+    {
+      "taskName": "Create API Docs",
+      "category": "Documentation",
+      "image": "/images/taskimg3.png",
+      "percentage": 18,
+      "time": "2 days",
+      "description": "Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design. Starting from spacing, typography, content, and many other design hierarchies. Then try to make it yourself with your imagination and inspiration.",
+      "teamImages": ["/images/profilepic.png"]
+    },
+    {
+      "taskName": "Create API Docs",
+      "category": "Documentation",
+      "image": "/images/taskimg5.png",
+      "percentage": 48,
+      "time": "2 days",
+      "description": "Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design. Starting from spacing, typography, content, and many other design hierarchies. Then try to make it yourself with your imagination and inspiration.",
+      "teamImages": ["/images/profilepic.png"]
+    }
+  ],
+  "newTasksubmission": []
 }
