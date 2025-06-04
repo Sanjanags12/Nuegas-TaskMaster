@@ -83,12 +83,30 @@
       "description": "Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design. Starting from spacing, typography, content, and many other design hierarchies. Then try to make it yourself with your imagination and inspiration.",
       "teamImages": ["/images/profilepic.png"]
     },
+     {
+      "taskName": "Create API Docs",
+      "category": "Documentation",
+      "image": "/images/taskimg3.png",
+      "percentage": 18,
+      "time": "2 days",
+      "description": "Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design. Starting from spacing, typography, content, and many other design hierarchies. Then try to make it yourself with your imagination and inspiration.",
+      "teamImages": ["/images/profilepic.png"]
+    },
+     {
+      "taskName": "Create API Docs",
+      "category": "Documentation",
+      "image": "/images/taskimg3.png",
+      "percentage": 18,
+      "time": "5 days left",
+      "description": "Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design. Starting from spacing, typography, content, and many other design hierarchies. Then try to make it yourself with your imagination and inspiration.",
+      "teamImages": ["/images/profilepic.png"]
+    },
     {
       "taskName": "Create API Docs",
       "category": "Documentation",
       "image": "/images/taskimg5.png",
       "percentage": 48,
-      "time": "2 days",
+      "time": "4 days left",
       "description": "Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design. Starting from spacing, typography, content, and many other design hierarchies. Then try to make it yourself with your imagination and inspiration.",
       "teamImages": ["/images/profilepic.png"]
     }

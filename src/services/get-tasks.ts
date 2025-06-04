@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Endpoints } from '~/constants/endpoints.constants';
 
@@ -14,11 +14,11 @@ export type Task = {
 
 
 export const useGetTasks = () => {
-  return useQuery<Task[], Error>({
-    queryKey: ['tasks'],
-    queryFn: async () => {
-      const response = await axios.get(`${Endpoints.GET_TASKS}`);
-      return response.data;
-    }
-  });
+  return(
+        useQuery<AxiosResponse<any,any>,Error,AxiosResponse<Task[]>>({
+            queryKey: ['busDetailsData'],
+            queryFn: ()=> axios.get(Endpoints.GET_TASKS).then(res=>res)
+        })
+
+    )
 };
