@@ -1,4 +1,4 @@
-
+'use client';
 
 import React from "react";
 import Navbar from "~/components/navbar/navbar";
@@ -66,11 +66,16 @@ const mentors = [
 const Mentors = () => {
   return (
     <div className="h-screen bg-gray-50">
-      <Navbar 
-        title="Explore Mentors" 
-        searchPlaceholder="Search mentors"
-      />
-
+      <Navbar
+       title="Explore Mentors"
+  searchPlaceholder="Search Mentors"
+  context="mentor"
+  categories={["Frontend", "Backend", "AI", "DevOps"]}
+  onFilterChange={({ category, sort, searchQuery }) => {
+    console.log("Filters:", category, sort, searchQuery);
+    // Apply your filtering logic to a mentor or task list here
+  }}
+/>
       <div className="p-4">
 
          <div className="relative">

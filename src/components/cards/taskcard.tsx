@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import Image from "next/image";
 import { Clock } from "lucide-react";
@@ -8,7 +10,8 @@ export type TaskCardProps = {
   image: string;
   percentage: number;
   time: string;
-  teamImages: string[];
+  description?: string;
+  teamImages?: string[];
 };
 
 const TaskCard: React.FC<TaskCardProps> = ({
@@ -17,43 +20,48 @@ const TaskCard: React.FC<TaskCardProps> = ({
   image,
   percentage,
   time,
-  teamImages
+  description,
+  teamImages = [],
 }) => {
   return (
     <div className="p-4 w-full max-w-sm bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border">
-      {/* Top Section */}
-      <div className="flex-row items-center ">
+      {/* Image */}
+      <div className="w-full">
         <Image
           src={image}
-          alt="Task Icon"
+          alt={taskName}
           width={300}
           height={150}
-          className="rounded-md object-cover"
+          className="rounded-md object-cover w-full h-36"
         />
-        <div>
-          <h2 className="mt-2 text-base font-semibold text-secondary-500 truncate">{taskName}</h2>
-          <p className="text-sm text-secondary-400">{category}</p>
-        </div>
       </div>
 
-   
+      {/* Title, Category, and Description */}
+      <div className="mt-2">
+        <h2 className="text-base font-semibold text-gray-800 truncate">{taskName}</h2>
+        <p className="text-sm text-gray-500">{category}</p>
+        {description && (
+          <p className="text-sm text-gray-600 mt-1 line-clamp-2">{description}</p>
+        )}
+      </div>
+
+      {/* Progress */}
       <div className="mb-4 mt-2">
         <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-            
           <div
-            className={
-              "h-2 rounded-full transition-all duration-300 bg-primary-500"}
+            className="h-2 rounded-full transition-all duration-300 bg-blue-500"
             style={{ width: `${percentage}%` }}
           ></div>
         </div>
-        <div className="text-right text-sm text-primary-500 mt-1 flex justify-between gap-3">
-              <p className=" text-sm text-secondary-400">Progress</p>
-            {percentage}% </div>
+        <div className="flex justify-between text-sm text-gray-600 mt-1">
+          <p>Progress</p>
+          <p>{percentage}%</p>
+        </div>
       </div>
 
-     
+      {/* Time and Team */}
       <div className="flex justify-between items-center pt-2 border-t mt-2">
-        <div className="flex items-center text-secondary-400 text-xs">
+        <div className="flex items-center text-gray-500 text-xs">
           <Clock className="w-4 h-4 mr-1" />
           {time}
         </div>
@@ -62,7 +70,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
             <Image
               key={idx}
               src={img}
-              alt={`Person ${idx}`}
+              alt={`Team member ${idx + 1}`}
               width={24}
               height={24}
               className="rounded-full border-2 border-white"
