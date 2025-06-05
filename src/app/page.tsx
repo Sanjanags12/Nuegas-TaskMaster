@@ -1,155 +1,143 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "~/components/button/button";
 import TaskCard from "~/components/cards/taskcard";
 import Image from "next/image";
 import MentorCard from "~/components/cards/mentorcard";
 import RunningTask from "~/components/cards/runningtask";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { useGetTasks } from "~/services/get-tasks";
+import { useGetMentors } from "~/services/get-mentor";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-
-
-
-
-const newTasks = [
-  {
-    taskName: "Design Landing Page",
-    category: "UI/UX",
-    image: "/images/taskimg4.png",
-    percentage: 72,
-    time: "1 days left",
-    teamImages: [
-      "/images/profilepic.png",
-      "/images/profilepic.png",
-      "/images/profilepic.png",
-    ],
-  },
-  {
-    taskName: "Fix Payment Bug",
-    category: "Backend",
-    image: "/images/taskimg5.png",
-    percentage: 35,
-    time: "3 day left",
-    teamImages: [
-      "/images/profilepic.png",
-      "/images/profilepic.png",
-    ],
-  },
-  {
-    taskName: "Create API Docs",
-    category: "Documentation",
-    image: "/images/taskimg6.png",
-    percentage: 88,
-    time: "2 days left ",
-    teamImages: [
-      "/images/profilepic.png",
-    ],
-  },
-   {
-    taskName: "Create API Docs",
-    category: "Documentation",
-    image: "/images/taskimg1.png",
-    percentage: 88,
-    time: "2 days left ",
-    teamImages: [
-      "/images/profilepic.png",
-    ],
-  },
-];
-
-const Mentors = [
-  {
-  profile:"/images/profilepic.png",
-  mentorName:"Jessica Jane",
-  designation:"Web Developer",
-  description:"EHi, I'm Jessica Jane. I am a doctoral student at Harvard University majoring in Web . . . ",
-  tasks:"40 Tasks",
-  rating:4.7,
-  },
- {
-     profile:"/images/image.png",
-  mentorName:"Stanton",
-  designation:"UI/UX Designer",
-  description:"Hi, I'm Alex Stanton. I am a doctoral student at Oxford University majoring in UI / UX  . . . ",
-  tasks:"60 Tasks",
-  rating:4.9,
-  },
-  {
-     profile:"/images/profilepic.png",
-  mentorName:"Jane Doe",
-  designation:"Senior Analyst",
-  description:"Hi, I'm Alex Stanton. I am a doctoral student at Oxford University majoring in UI / UX  . . . ",
-  tasks:"50 Tasks",
-  rating:4.8,
-  },
- 
-];
-
+const VISIBLE_COUNT = 2; // Only show 2 at a time
 
 const Home = () => {
+  const { data: tasksRes, isLoading: isTasksLoading } = useGetTasks();
+  const tasks = tasksRes?.data || [];
+
+  const { data: mentorsRes, isLoading: isMentorsLoading } = useGetMentors();
+  const mentors = mentorsRes?.data || [];
+
+  const [mentorStartIndex, setMentorStartIndex] = useState(0);
+  const [taskStartIndex, setTaskStartIndex] = useState(0);
+
+  const chartData = tasks.map((task: any) => ({
+    name: task.week || "Week",
+    count: task.taskCount || 0,
+  }));
+
+  const scrollCards = (type: "mentor" | "task", direction: "left" | "right") => {
+    const data = type === "mentor" ? mentors : tasks;
+    const startIndex = type === "mentor" ? mentorStartIndex : taskStartIndex;
+
+    let newIndex = direction === "right"
+      ? startIndex + VISIBLE_COUNT
+      : startIndex - VISIBLE_COUNT;
+
+    newIndex = Math.max(0, Math.min(data.length - VISIBLE_COUNT, newIndex));
+
+    if (type === "mentor") setMentorStartIndex(newIndex);
+    else setTaskStartIndex(newIndex);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-    <div className="flex flex-row justify-between pt-5 mx-5"> 
-      <div className ="flex flex-col ">
-<h1 className="flex justify-start font-bold text-2xl ">Hi, Skylar Dias</h1>
-      <h6 className="flex justify-start font-base"> Let's finish your task today!</h6>
-     
-      </div>
-         
-      <div className="flex items-center gap-5 w-auto ">
+    <div className="min-h-screen bg-gray-50 overflow-hidden w-full px-4 sm:px-8 pb-5">
+    
+      <div className="flex flex-row justify-between pt-5">
+        <div>
+          <h1 className="font-bold text-2xl">Hi, Skylar Dias</h1>
+          <h6 className="text-base text-gray-700">Let's finish your tasks today!</h6>
+        </div>
+        <div className="flex items-center gap-5">
           <Button className="rounded-full bg-white hover:bg-secondary-100 p-2">
-            <Image
-              src="/notification.svg"
-              alt="notification"
-              width={20}
-              height={20}
-              unoptimized
-              className="w-5 h-5"
-            />
+            <Image src="/notification.svg" alt="notification" width={20} height={20} unoptimized />
           </Button>
-          <div className=" bg-white hover:shadow-lg rounded-full border">
-            <Image
-              src="/images/profilepic.png"
-              alt="profile"
-              width={30}
-              height={30}
-              unoptimized
-              className="w-10 h-10 rounded-full object-cover"
-            />
+          <div className="bg-white hover:shadow-lg rounded-full border">
+            <Image src="/images/profilepic.png" alt="profile" width={40} height={40} unoptimized className="rounded-full object-cover" />
           </div>
         </div>
-         </div>
-      
-      <div className="mt-3">
-       
-          <div className="flex gap-4 overflow-y-auto pb-4">
-            
-              <RunningTask completed={40} totalTask={78}  />
-            
-          </div>
-        </div>
-      
-      <div className="p-4">
-       
-       <div className="relative">
-          
-      <h2 className="text-lg font-semibold mb-2">Recent Mentors</h2>
-      <div className="flex items-center gap-4  pb-4">
-        {Mentors.map((mentor, idx) => (
-          <div key={`recent-${idx}`} className="min-w-[280px] max-w-sm">
-            <MentorCard {...mentor} hideDescription />
-          </div>
-        ))}
-      </div>
       </div>
 
-        {/* New Tasks */}
-        <div className="mt-3">
-          <h2 className="text-lg font-semibold mb-2">New Tasks</h2>
-          <div className="flex gap-4 overflow-y-auto pb-4">
-            {newTasks.map((task, idx) => (
-              <TaskCard key={`new-task-${idx}`} {...task} />
-            ))}
+      {/* Running Task + Chart */}
+      <div className="mt-5 flex flex-col lg:flex-row gap-4">
+        <RunningTask completed={40} totalTask={78} />
+        <div className="w-full lg:w-1/2 h-[200px] bg-white rounded-md shadow-md p-4">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="count" stroke="#8884d8" activeDot={{ r: 6 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Mentor Cards */}
+      <div className="mt-8">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-lg font-semibold">Recent Mentors</h2>
+          <div className="flex gap-2">
+            <ChevronLeft
+              className="cursor-pointer"
+              onClick={() => scrollCards("mentor", "left")}
+            />
+            <ChevronRight
+              className="cursor-pointer"
+              onClick={() => scrollCards("mentor", "right")}
+            />
+          </div>
+        </div>
+        <div className="w-full overflow-hidden">
+          <div className="flex gap-4 transition-transform duration-300">
+            {mentors
+              .slice(mentorStartIndex, mentorStartIndex + VISIBLE_COUNT)
+              .map((mentor, idx) => (
+                <div key={`mentor-${idx}`} className="flex-1 min-w-[48%]">
+                  <MentorCard {...mentor} hideDescription />
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Task Cards */}
+      <div className="mt-6">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-lg font-semibold">New Tasks</h2>
+          <div className="flex gap-2">
+            <ChevronLeft
+              className="cursor-pointer"
+              onClick={() => scrollCards("task", "left")}
+            />
+            <ChevronRight
+              className="cursor-pointer"
+              onClick={() => scrollCards("task", "right")}
+            />
+          </div>
+        </div>
+        <div className="w-full overflow-hidden">
+          <div className="flex gap-4 transition-transform duration-300">
+            {tasks
+              .slice(taskStartIndex, taskStartIndex + VISIBLE_COUNT)
+              .map((task, idx) => (
+                <div key={`task-${idx}`} className="flex-1 min-w-[48%]">
+                  <TaskCard {...task} />
+                </div>
+              ))}
           </div>
         </div>
       </div>

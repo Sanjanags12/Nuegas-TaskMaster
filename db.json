@@ -1,5 +1,5 @@
 {
-  "mentors": [
+  "Mentors": [
     {
       "profile": "/images/profilepic.png",
       "mentorName": "Jessica Jane",
@@ -36,15 +36,7 @@
       "rating": 4.8,
       "reviews": 145
     },
-    {
-      "profile": "/images/image.png",
-      "mentorName": "Jane",
-      "designation": "Senior Analyst",
-      "description": "Hi, I'm Jane. I am a senior analyst with expertise in business intelligence...",
-      "tasks": "50 Tasks",
-      "rating": 4.8,
-      "reviews": 234
-    },
+    
     {
       "profile": "/images/profilepic.png",
       "mentorName": "Jane Doe",

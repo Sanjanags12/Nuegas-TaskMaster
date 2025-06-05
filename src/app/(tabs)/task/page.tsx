@@ -7,7 +7,7 @@ import { useGetTasks } from "~/services/get-tasks";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 
-// Sorting options
+
 const sortOptionsMap = {
   task: ["All", "Deadline"],
   mentor: ["All", "Popularity"],
