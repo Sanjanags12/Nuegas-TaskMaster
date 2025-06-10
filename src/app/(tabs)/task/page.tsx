@@ -7,7 +7,6 @@ import { useGetTasks } from "~/services/get-tasks";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 
-// Sorting options
 const sortOptionsMap = {
   task: ["All", "Deadline"],
   mentor: ["All", "Popularity"],
@@ -21,16 +20,14 @@ const Task = () => {
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("All");
 
-  const timeLimitRef = useRef<HTMLDivElement>(null);
+   const timeLimitRef = useRef<HTMLDivElement>(null);
   const newTasksRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (
-    ref: React.RefObject<HTMLDivElement>,
-    direction: "left" | "right"
-  ) => {
-    if (!ref.current) return;
-    const scrollAmount = ref.current.offsetWidth * 0.8;
-    ref.current.scrollBy({
+  const scroll = (direction: "left" | "right") => {
+    if (!newTasksRef.current) return;
+    const cardWidth = newTasksRef.current.firstElementChild?.clientWidth || 0;
+    const scrollAmount = cardWidth * 0.8; 
+    newTasksRef.current.scrollBy({
       left: direction === "right" ? scrollAmount : -scrollAmount,
       behavior: "smooth",
     });
@@ -66,7 +63,7 @@ const Task = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+    <div className="min-h-screen bg-gray-50 overflow-hidden">
       <Navbar title="Explore Tasks" context="task" />
       <div className="max-w-screen-xl mx-auto bg-secondary-200">
         <div className="p-4 bg-white">
@@ -135,36 +132,33 @@ const Task = () => {
             </div>
           </div>
 
-          {/* Task Lists */}
-          {isLoading && <p className="text-secondary-400">Loading tasks...</p>}
-          {isError && <p className="text-red-500">Failed to load tasks.</p>}
-
+          {/* Content */}
           {!isLoading && !isError && (
             <>
               {/* Time-Limit Section */}
-              <div className="mt-4">
+              <div className="mt-6">
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-lg font-semibold">Time-Limit</h2>
                   <div className="flex gap-2">
-                    <ChevronLeft
-                      className="cursor-pointer"
-                      onClick={() => scroll(timeLimitRef, "left")}
-                    />
-                    <ChevronRight
-                      className="cursor-pointer"
-                      onClick={() => scroll(timeLimitRef, "right")}
-                    />
-                  </div>
+                <ChevronLeft
+                  className="cursor-pointer"
+                  onClick={() => scroll("left")}
+                />
+                <ChevronRight
+                  className="cursor-pointer"
+                  onClick={() => scroll("right")}
+                />
+              </div>
                 </div>
                 <div
                   ref={timeLimitRef}
-                  className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar pb-4"
+                  className="flex gap-5 overflow-x-auto scroll-smooth no-scrollbar pb-4"
                 >
                   {timeLimitTasks.length > 0 ? (
                     timeLimitTasks.map((task, idx) => (
                       <div
                         key={`time-task-${idx}`}
-                        className="flex-shrink-0 w-[80%] sm:w-[70%] md:w-[45%] lg:w-[32%] xl:w-[25%]"
+                        className="flex-shrink-0 w-[calc(100%/3.5)]"
                       >
                         <TaskCard {...task} />
                       </div>
@@ -179,16 +173,16 @@ const Task = () => {
               <div className="mt-8">
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-lg font-semibold">New Tasks</h2>
-                  <div className="flex gap-2">
-                    <ChevronLeft
-                      className="cursor-pointer"
-                      onClick={() => scroll(newTasksRef, "left")}
-                    />
-                    <ChevronRight
-                      className="cursor-pointer"
-                      onClick={() => scroll(newTasksRef, "right")}
-                    />
-                  </div>
+                   <div className="flex gap-2">
+                <ChevronLeft
+                  className="cursor-pointer"
+                  onClick={() => scroll("left")}
+                />
+                <ChevronRight
+                  className="cursor-pointer"
+                  onClick={() => scroll("right")}
+                />
+              </div>
                 </div>
                 <div
                   ref={newTasksRef}
@@ -198,7 +192,7 @@ const Task = () => {
                     newTasks.map((task, idx) => (
                       <div
                         key={`new-task-${idx}`}
-                        className="flex-shrink-0 w-[80%] sm:w-[70%] md:w-[45%] lg:w-[32%] xl:w-[25%]"
+                        className="flex-shrink-0 w-[calc(100%/3.5)]"
                       >
                         <TaskCard {...task} />
                       </div>

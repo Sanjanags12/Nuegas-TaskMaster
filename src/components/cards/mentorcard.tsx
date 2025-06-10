@@ -11,8 +11,9 @@ export type MentorCardProps = {
   description: string;
   tasks: string;
   rating: number | string;
-   hideDescription?: boolean;
+  hideDescription?: boolean;
 };
+
 
 const MentorCard: React.FC<MentorCardProps> = ({
   profile,
