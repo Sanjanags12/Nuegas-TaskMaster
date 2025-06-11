@@ -49,7 +49,7 @@ const Mentors = () => {
                 </div>
               ))
             ) : (
-              <p>No mentors found.</p>
+              <p>No mentors found .</p>
             )}
           </div>
         </div>
