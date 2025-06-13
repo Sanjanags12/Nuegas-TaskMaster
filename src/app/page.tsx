@@ -20,7 +20,7 @@ import { useGetTasks } from "~/services/get-tasks";
 import { useGetMentors } from "~/services/get-mentor";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const VISIBLE_COUNT = 2; // Only show 2 at a time
+const VISIBLE_COUNT = 2; 
 
 const Home = () => {
   const { data: tasksRes, isLoading: isTasksLoading } = useGetTasks();
