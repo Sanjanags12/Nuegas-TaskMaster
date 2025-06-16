@@ -30,7 +30,7 @@ export default function LoginPage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="block mb-2 p-2 border rounded"
+          className="block mb-2 p-2  rounded focus:border-blue-500 focus:border-4"
           required
         />
         <input
