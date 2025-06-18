@@ -54,16 +54,14 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth`,
-      {
-        email: email,
-        password: password,
-      },
-      { withCredentials: true }
-    ).then((data) => {
-      const userId = data.data.data.user._id;
-      router.push(`/overview`);
-    })
+  `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth`,
+  { email, password },
+  { withCredentials: true }
+).then((data) => {
+ 
+  router.push("/overview");
+})
+
   };
 
   return (
