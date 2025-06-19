@@ -20,21 +20,22 @@ const Task = () => {
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("All");
 
-  const timeLimitRef = useRef<HTMLDivElement>(null);
-  const newTasksRef = useRef<HTMLDivElement>(null);
+  const timeLimitRef = useRef<HTMLDivElement>(null!);
+const newTasksRef = useRef<HTMLDivElement>(null!);
 
-  // Scroll helper
-  const scroll = (direction: "left" | "right", ref: React.RefObject<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
-    const scrollAmount = cardWidth * 0.8;
-    ref.current.scrollBy({
-      left: direction === "right" ? scrollAmount : -scrollAmount,
-      behavior: "smooth",
-    });
-  };
+const scroll = (
+  direction: "left" | "right",
+  ref: React.RefObject<HTMLDivElement>
+) => {
+  if (!ref.current) return;
+  const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
+  const scrollAmount = cardWidth * 0.8;
+  ref.current.scrollBy({
+    left: direction === "right" ? scrollAmount : -scrollAmount,
+    behavior: "smooth",
+  });
+};
 
-  // Extract unique categories for the category filter
   const categories = Array.from(new Set(tasks.map((t) => t.category).filter(Boolean)));
 
   return (

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
 export type Task = {
+  category: any;
   _id: string;
   userId: string;
   taskId: string;

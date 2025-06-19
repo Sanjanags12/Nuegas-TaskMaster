@@ -99,26 +99,44 @@ const OverView = () => {
       </div>
 
       {/* Mentor Cards */}
-      <div className="mt-8">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-lg font-semibold">Recent Mentors</h2>
-          <div className="flex gap-2">
-            <ChevronLeft className="cursor-pointer" onClick={() => scrollCards("mentor", "left")} />
-            <ChevronRight className="cursor-pointer" onClick={() => scrollCards("mentor", "right")} />
-          </div>
-        </div>
-        <div className="w-full overflow-hidden">
-          <div className="flex gap-4 transition-transform duration-300">
-            {mentors
-              .slice(mentorStartIndex, mentorStartIndex + VISIBLE_COUNT)
-              .map((mentor: MentorCardProps, idx) => (
-                <div key={`mentor-${idx}`} className="flex-1 min-w-[48%]">
-                  <MentorCard {...mentor} hideDescription />
-                </div>
-              ))}
-          </div>
-        </div>
-      </div>
+<div className="mt-8">
+  <div className="flex justify-between items-center mb-2">
+    <h2 className="text-lg font-semibold">Recent Mentors</h2>
+    <div className="flex gap-2">
+      <ChevronLeft
+        className="cursor-pointer"
+        onClick={() => scrollCards("mentor", "left")}
+      />
+      <ChevronRight
+        className="cursor-pointer"
+        onClick={() => scrollCards("mentor", "right")}
+      />
+    </div>
+  </div>
+  <div className="w-full overflow-hidden">
+    <div className="flex gap-4 transition-transform duration-300">
+      {mentors
+        .slice(mentorStartIndex, mentorStartIndex + VISIBLE_COUNT)
+        .map((mentor: any, idx) => {
+          const mappedMentor: MentorCardProps = {
+            mentorName: mentor.name,
+            designation: mentor.designation,
+            tasks: mentor.taskCount ?? 0,
+            rating: mentor.rating ?? 0,
+            profile: mentor.profile ?? "",
+            description: mentor.description ?? "",
+          };
+
+          return (
+            <div key={`mentor-${idx}`} className="flex-1 min-w-[48%]">
+              <MentorCard {...mappedMentor} hideDescription />
+            </div>
+          );
+        })}
+    </div>
+  </div>
+</div>
+
 
       {/* Task Cards */}
       <div className="mt-6">
