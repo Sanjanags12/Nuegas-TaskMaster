@@ -37,7 +37,7 @@ const MentorCard: React.FC<MentorCardProps> = ({
             />
           ) : (
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-lg uppercase">
-              {mentorName}
+              {mentorName.charAt(0).toUpperCase()}
             </div>
           )}
           <div>
