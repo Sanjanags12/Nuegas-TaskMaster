@@ -1,20 +1,30 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { Endpoints } from '~/constants/endpoints.constants';
 
 export type Mentor = {
-  profile: string;
-  mentorName: string;
+  _id: string;
+  name: string;
+  email: string;
+  task: number;
+  ratings: number;
   designation: string;
-  description: string;
-  tasks: string;
-  rating: number;
-  reviews?: number;
+  mentor: boolean;
+};
+
+type MentorApiResponse = {
+  success: boolean;
+  data: Mentor[];
 };
 
 export const useGetMentors = () => {
-  return useQuery<AxiosResponse<any, any>, Error, AxiosResponse<Mentor[]>>({
+  return useQuery<Mentor[], Error>({
     queryKey: ['mentorData'],
-    queryFn: () => axios.get(Endpoints.GET_MENTORS).then((res) => res),
+    queryFn: async () => {
+      const res = await axios.get<MentorApiResponse>(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/mentors`,
+        { withCredentials: true }
+      );
+      return res.data.data;
+    },
   });
 };

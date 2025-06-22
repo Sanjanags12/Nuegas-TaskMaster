@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Task } from '~/state-management/task.types';
+import { Task } from '~/state-management/types';
 import { Endpoints } from '~/constants/endpoints.constants';
 
 

@@ -1,24 +1,27 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { Endpoints } from '~/constants/endpoints.constants';
 
 export type Task = {
-  taskName: string;
-  category: string;
-  image: string;
-  percentage: number;
-  time: string;
-  description?: string;
-  teamImages?: string[];
+  category: any;
+  _id: string;
+  userId: string;
+  taskId: string;
+  progress: number;
+  rating: number;
+  status: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
-
 export const useGetTasks = () => {
-  return(
-        useQuery<AxiosResponse<any,any>,Error,AxiosResponse<Task[]>>({
-            queryKey: ['busDetailsData'],
-            queryFn: ()=> axios.get(Endpoints.GET_TASKS).then(res=>res)
-        })
-
-    )
+  return useQuery<Task[], Error>({
+    queryKey: ['taskData'],
+    queryFn: async () => {
+      const response = await axios.get<{ success: boolean; data: Task[] }>(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user-tasks`,
+        { withCredentials: true }
+      );
+      return response.data.data;
+    },
+  });
 };

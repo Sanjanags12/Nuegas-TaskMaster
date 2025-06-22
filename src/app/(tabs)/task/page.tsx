@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
 import React, { useState, useRef } from "react";
 import Navbar from "~/components/navbar/navbar";
-import TaskCard from "~/components/cards/taskcard";
+import TaskCard, { TaskCardProps } from "~/components/cards/taskcard";
 import { useGetTasks } from "~/services/get-tasks";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
@@ -13,54 +13,30 @@ const sortOptionsMap = {
 };
 
 const Task = () => {
-  const { data: response, isLoading, isError } = useGetTasks();
-  const tasks = response?.data || [];
+
+  const { data: tasks = [], isLoading: tasksLoading, error: tasksError } = useGetTasks();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("All");
 
-   const timeLimitRef = useRef<HTMLDivElement>(null);
-  const newTasksRef = useRef<HTMLDivElement>(null);
+  const timeLimitRef = useRef<HTMLDivElement>(null!);
+const newTasksRef = useRef<HTMLDivElement>(null!);
 
-  const scroll = (direction: "left" | "right") => {
-    if (!newTasksRef.current) return;
-    const cardWidth = newTasksRef.current.firstElementChild?.clientWidth || 0;
-    const scrollAmount = cardWidth * 0.8; 
-    newTasksRef.current.scrollBy({
-      left: direction === "right" ? scrollAmount : -scrollAmount,
-      behavior: "smooth",
-    });
-  };
-
-  const categories = Array.from(
-    new Set(tasks?.map((task) => task.category).filter(Boolean))
-  );
-
-  const filteredByCategory = tasks.filter((task) =>
-    category === "All" ? true : task.category === category
-  );
-
-  const filteredBySearch = filteredByCategory.filter((task) =>
-    task.taskName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const sortedTasks = filteredBySearch.slice().sort((a, b) => {
-    if (sort === "Deadline") {
-      return new Date(a.time).getTime() - new Date(b.time).getTime();
-    }
-    return 0;
+const scroll = (
+  direction: "left" | "right",
+  ref: React.RefObject<HTMLDivElement>
+) => {
+  if (!ref.current) return;
+  const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
+  const scrollAmount = cardWidth * 0.8;
+  ref.current.scrollBy({
+    left: direction === "right" ? scrollAmount : -scrollAmount,
+    behavior: "smooth",
   });
+};
 
-  const timeLimitTasks = sortedTasks.filter(
-    (task) =>
-      task.time.toLowerCase().includes("hour") ||
-      task.time.toLowerCase().includes("day")
-  );
-
-  const newTasks = sortedTasks.filter((task) =>
-    task.time.toLowerCase().includes("left")
-  );
+  const categories = Array.from(new Set(tasks.map((t) => t.category).filter(Boolean)));
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-hidden">
@@ -132,30 +108,28 @@ const Task = () => {
             </div>
           </div>
 
-          {/* Content */}
-          {!isLoading && !isError && (
-            <>
+         
               {/* Time-Limit Section */}
               <div className="mt-6">
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-lg font-semibold">Time-Limit</h2>
                   <div className="flex gap-2">
-                <ChevronLeft
-                  className="cursor-pointer"
-                  onClick={() => scroll("left")}
-                />
-                <ChevronRight
-                  className="cursor-pointer"
-                  onClick={() => scroll("right")}
-                />
-              </div>
+                    <ChevronLeft
+                      className="cursor-pointer"
+                      onClick={() => scroll("left", timeLimitRef)}
+                    />
+                    <ChevronRight
+                      className="cursor-pointer"
+                      onClick={() => scroll("right", timeLimitRef)}
+                    />
+                  </div>
                 </div>
                 <div
                   ref={timeLimitRef}
                   className="flex gap-5 overflow-x-auto scroll-smooth no-scrollbar pb-4"
                 >
-                  {timeLimitTasks.length > 0 ? (
-                    timeLimitTasks.map((task, idx) => (
+                  {tasks.length > 0 ? (
+                    tasks.map((task, idx) => (
                       <div
                         key={`time-task-${idx}`}
                         className="flex-shrink-0 w-[calc(100%/3.5)]"
@@ -164,7 +138,7 @@ const Task = () => {
                       </div>
                     ))
                   ) : (
-                    <p>No time-limit tasks found.</p>
+                    <p>No tasks found.</p>
                   )}
                 </div>
               </div>
@@ -173,23 +147,23 @@ const Task = () => {
               <div className="mt-8">
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-lg font-semibold">New Tasks</h2>
-                   <div className="flex gap-2">
-                <ChevronLeft
-                  className="cursor-pointer"
-                  onClick={() => scroll("left")}
-                />
-                <ChevronRight
-                  className="cursor-pointer"
-                  onClick={() => scroll("right")}
-                />
-              </div>
+                  <div className="flex gap-2">
+                    <ChevronLeft
+                      className="cursor-pointer"
+                      onClick={() => scroll("left", newTasksRef)}
+                    />
+                    <ChevronRight
+                      className="cursor-pointer"
+                      onClick={() => scroll("right", newTasksRef)}
+                    />
+                  </div>
                 </div>
                 <div
                   ref={newTasksRef}
                   className="flex gap-5 overflow-x-auto scroll-smooth no-scrollbar pb-4"
                 >
-                  {newTasks.length > 0 ? (
-                    newTasks.map((task, idx) => (
+                  {tasks.length > 0 ? (
+                    tasks.map((task, idx) => (
                       <div
                         key={`new-task-${idx}`}
                         className="flex-shrink-0 w-[calc(100%/3.5)]"
@@ -198,12 +172,13 @@ const Task = () => {
                       </div>
                     ))
                   ) : (
-                    <p>No new tasks found.</p>
+                    <p>No tasks found.</p>
                   )}
                 </div>
               </div>
-            </>
-          )}
+          
+
+         
         </div>
       </div>
     </div>
