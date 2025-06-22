@@ -11,6 +11,7 @@ const Mentors = () => {
 
   // Transform API data to MentorCardProps format
   const mappedMentors = mentors.map((mentor) => ({
+     mentorId: mentor._id,
     mentorName: mentor.name,
     designation: mentor.designation,
     tasks: mentor.task,
@@ -37,7 +38,7 @@ const Mentors = () => {
             {recentMentors.length > 0 ? (
               recentMentors.map((mentor, idx) => (
                 <div key={`recent-${idx}`} className="min-w-[280px] max-w-sm">
-                  <MentorCard {...mentor} hideDescription />
+                  <MentorCard  {...mentor} hideDescription />
                 </div>
               ))
             ) : (
@@ -64,7 +65,7 @@ const Mentors = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {mappedMentors.map((mentor, idx) => (
                 <div key={`mentor-${idx}`} className="min-w-full">
-                  <MentorCard {...mentor} />
+                  <MentorCard  {...mentor} />
                 </div>
               ))}
             </div>
