@@ -45,7 +45,7 @@ const handleFollow = () => {
     onError: (error: any) => {
       const message = error?.response?.data?.message || error?.message || 'Something went wrong.';
 
-      // ✅ Handle "already following" case
+    
       if (message.includes('already following')) {
         setFollowed(true);
         return;
