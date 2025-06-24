@@ -6,7 +6,7 @@ import { Button } from "../button/button";
 
 type NavbarProps = {
   title?: string;
-  context: "task" | "mentor";
+  context: "task" | "mentor"| "Message";
   
 };
 

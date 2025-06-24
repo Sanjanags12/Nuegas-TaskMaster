@@ -9,14 +9,13 @@ import { useGetMentors } from '~/services/get-mentor';
 const Mentors = () => {
   const { data: mentors = [], isLoading, isError, error } = useGetMentors();
 
-  // Transform API data to MentorCardProps format
   const mappedMentors = mentors.map((mentor) => ({
      mentorId: mentor._id,
     mentorName: mentor.name,
     designation: mentor.designation,
     tasks: mentor.task,
     rating: mentor.ratings,
-    profile: '', // no profile from API, fallback used inside MentorCard
+    profile: '', 
   }));
 
   const recentMentors = mappedMentors.slice(0, 3);
