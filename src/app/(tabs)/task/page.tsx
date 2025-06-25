@@ -1,46 +1,92 @@
 'use client';
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import Navbar from "~/components/navbar/navbar";
 import TaskCard, { TaskCardProps } from "~/components/cards/taskcard";
-import { useGetTasks } from "~/services/get-tasks";
+
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { useGetAllTasks } from "~/services/get-alltask";
 
 const sortOptionsMap = {
   task: ["All", "Deadline"],
-  mentor: ["All", "Popularity"],
+
 };
 
 const Task = () => {
-
-  const { data: tasks = [], isLoading: tasksLoading, error: tasksError } = useGetTasks();
+  const { data: tasks = [], isLoading, error } = useGetAllTasks();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("All");
 
   const timeLimitRef = useRef<HTMLDivElement>(null!);
-const newTasksRef = useRef<HTMLDivElement>(null!);
+  const newTasksRef = useRef<HTMLDivElement>(null!);
 
-const scroll = (
-  direction: "left" | "right",
-  ref: React.RefObject<HTMLDivElement>
-) => {
-  if (!ref.current) return;
-  const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
-  const scrollAmount = cardWidth * 0.8;
-  ref.current.scrollBy({
-    left: direction === "right" ? scrollAmount : -scrollAmount,
-    behavior: "smooth",
-  });
-};
+  const scroll = (
+    direction: "left" | "right",
+    ref: React.RefObject<HTMLDivElement>
+  ) => {
+    if (!ref.current) return;
+    const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
+    const scrollAmount = cardWidth * 0.8;
+    ref.current.scrollBy({
+      left: direction === "right" ? scrollAmount : -scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
-  const categories = Array.from(new Set(tasks.map((t) => t.category).filter(Boolean)));
+  const categories = useMemo(
+    () => Array.from(new Set(tasks.map((t) => t.category).filter(Boolean))),
+    [tasks]
+  );
+
+  const filteredTasks = useMemo(() => {
+    let filtered = tasks;
+
+    if (category !== "All") {
+      filtered = filtered.filter((t) => t.category === category);
+    }
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (t) =>
+          t.title.toLowerCase().includes(query) ||
+          t.description?.toLowerCase().includes(query)
+      );
+    }
+
+    if (sort === "Deadline") {
+      filtered = [...filtered].sort(
+        (a, b) =>
+          new Date(a.createdAt || "").getTime() -
+          new Date(b.createdAt || "").getTime()
+      );
+    }
+
+    return filtered;
+  }, [tasks, searchQuery, category, sort]);
+
+  const timeLimitedTasks = useMemo(
+    () => filteredTasks.filter((t) => "in-progress"),
+    [filteredTasks]
+  );
+
+  const newTasks = useMemo(() => {
+    return [...filteredTasks]
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt || "").getTime() -
+          new Date(a.createdAt || "").getTime()
+      )
+      .slice(0, 5); 
+  }, [filteredTasks]);
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-hidden">
       <Navbar title="Explore Tasks" context="task" />
+
       <div className="max-w-screen-xl mx-auto bg-secondary-200">
         <div className="p-4 bg-white">
           {/* Filters */}
@@ -108,7 +154,13 @@ const scroll = (
             </div>
           </div>
 
-         
+          {/* Loading & Error */}
+          {isLoading ? (
+            <p className="text-center text-gray-500">Loading tasks...</p>
+          ) : error ? (
+            <p className="text-center text-red-500">Failed to load tasks.</p>
+          ) : (
+            <>
               {/* Time-Limit Section */}
               <div className="mt-6">
                 <div className="flex justify-between items-center mb-2">
@@ -128,8 +180,8 @@ const scroll = (
                   ref={timeLimitRef}
                   className="flex gap-5 overflow-x-auto scroll-smooth no-scrollbar pb-4"
                 >
-                  {tasks.length > 0 ? (
-                    tasks.map((task, idx) => (
+                  {timeLimitedTasks.length > 0 ? (
+                    timeLimitedTasks.map((task, idx) => (
                       <div
                         key={`time-task-${idx}`}
                         className="flex-shrink-0 w-[calc(100%/3.5)]"
@@ -138,7 +190,7 @@ const scroll = (
                       </div>
                     ))
                   ) : (
-                    <p>No tasks found.</p>
+                    <p>No time-limited tasks found.</p>
                   )}
                 </div>
               </div>
@@ -162,8 +214,8 @@ const scroll = (
                   ref={newTasksRef}
                   className="flex gap-5 overflow-x-auto scroll-smooth no-scrollbar pb-4"
                 >
-                  {tasks.length > 0 ? (
-                    tasks.map((task, idx) => (
+                  {newTasks.length > 0 ? (
+                    newTasks.map((task, idx) => (
                       <div
                         key={`new-task-${idx}`}
                         className="flex-shrink-0 w-[calc(100%/3.5)]"
@@ -172,13 +224,12 @@ const scroll = (
                       </div>
                     ))
                   ) : (
-                    <p>No tasks found.</p>
+                    <p>No new tasks found.</p>
                   )}
                 </div>
               </div>
-          
-
-         
+            </>
+          )}
         </div>
       </div>
     </div>
