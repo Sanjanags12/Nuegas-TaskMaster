@@ -17,7 +17,7 @@ const SideBar = () => {
         { label: "Overview", path: "/overview", icon: "/overview.svg" },
         { label: "Task", path: "/task", icon: "/task.svg" },
         { label: "Mentors", path: "/mentors", icon: "/mentor.svg" },
-        { label: "Message", path: "/message", icon: "/message.svg" },
+        { label: "Message", path: "/messages", icon: "/message.svg" },
         { label: "Settings", path: "/settings", icon: "/settings.svg" },
       ].map(({ label, path, icon }) => {
         const isActive = pathname === path;

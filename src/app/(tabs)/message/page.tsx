@@ -16,10 +16,10 @@ export default function Message() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 w-full px-4 sm:px-8 pb-5">
+    <div className="min-h-screen bg-gray-50 w-full px-4 sm:px-8 pb-5 ">
       <Navbar title="Messages" context="Message" />
-
-      <div className="mt-4 max-w-md mx-auto space-y-4">
+      
+      <div className="mt-4 max-w-md mx-auto space-y-4 flex flex-col">
        
         <input
           type="text"
@@ -59,10 +59,11 @@ export default function Message() {
         </div>
 
         
-        {selectedFollower && (
+       
+      </div>
+       {selectedFollower && (
           <Chat receiverId={selectedFollower} />
         )}
-      </div>
     </div>
   );
 }
