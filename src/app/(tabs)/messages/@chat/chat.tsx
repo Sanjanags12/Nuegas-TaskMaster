@@ -13,7 +13,6 @@ type ChatProps = {
     profile?: string;
   };
 };
-
 const Chat: React.FC<ChatProps> = ({ receiverId,follower }) => {
   const [message, setMessage] = useState('');
   const queryClient = useQueryClient();
