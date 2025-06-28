@@ -90,7 +90,7 @@ const Chat: React.FC<ChatProps> = ({ receiverId }) => {
 
   return (
     <div className="flex flex-col h-screen max-w-md mx-auto border shadow rounded ">
-      {/* Chat messages */}
+      {/* Chat messages page */}
       <div className="flex-1 overflow-y-auto p-4 bg-green-200 no-scrollbar">
         {isLoading ? (
           <p>Loading messages...</p>
