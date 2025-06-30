@@ -18,7 +18,7 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav className="bg-white w-full ">
       {/* Top Section */}
-      <div className="max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center">
+      <div className="max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center border-b">
         <p className="text-xl sm:text-2xl font-medium text-gray-900">{title}</p>
 
         <div className="flex items-center gap-3">

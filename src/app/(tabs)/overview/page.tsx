@@ -16,15 +16,15 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { useGetTasks } from "~/services/get-tasks";
 import { useGetMentors } from "~/services/get-mentor";
 import { useGetUser } from "~/services/get-user";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useGetAllTasks } from "~/services/get-alltask";
 
 const VISIBLE_COUNT = 2;
 
 const OverView = () => {
-  const { data: tasks = [], isLoading: tasksLoading, error: tasksError } = useGetTasks();
+  const { data: tasks = [], isLoading: tasksLoading, error: tasksError } = useGetAllTasks();
   const { data: mentors = [], isLoading: mentorsLoading, error: mentorsError } = useGetMentors();
   const { data: user } = useGetUser();
 
@@ -140,26 +140,38 @@ const OverView = () => {
 
 
       {/* Task Cards */}
-      <div className="mt-6">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-lg font-semibold">New Tasks</h2>
-          <div className="flex gap-2">
-            <ChevronLeft className="cursor-pointer" onClick={() => scrollCards("task", "left")} />
-            <ChevronRight className="cursor-pointer" onClick={() => scrollCards("task", "right")} />
+  <div className="mt-6">
+  <div className="flex justify-between items-center mb-2">
+    <h2 className="text-lg font-semibold">New Tasks</h2>
+    <div className="flex gap-2">
+      <ChevronLeft
+        className="cursor-pointer"
+        onClick={() => scrollCards("task", "left")}
+      />
+      <ChevronRight
+        className="cursor-pointer"
+        onClick={() => scrollCards("task", "right")}
+      />
+    </div>
+  </div>
+
+  <div className="w-full overflow-hidden">
+    <div className="flex gap-4 transition-transform duration-300">
+      {tasks
+        .slice(taskStartIndex, taskStartIndex + VISIBLE_COUNT)
+        .map((task: TaskCardProps, idx) => (
+          <div
+            key={`task-${idx}`}
+            className="w-full sm:w-[calc(100%/2.5)] md:w-[calc(100%/3.2)] flex-shrink-0"
+          >
+            <TaskCard {...task} />
           </div>
-        </div>
-        <div className="w-full overflow-hidden">
-          <div className="flex gap-4 transition-transform duration-300">
-            {tasks
-              .slice(taskStartIndex, taskStartIndex + VISIBLE_COUNT)
-              .map((task: TaskCardProps, idx) => (
-                <div key={`task-${idx}`} className="flex-1 min-w-[48%]">
-                  <TaskCard {...task} />
-                </div>
-              ))}
-          </div>
-        </div>
-      </div>
+        ))}
+    </div>
+  </div>
+</div>
+
+
     </div>
   );
 };

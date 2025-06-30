@@ -1,79 +1,69 @@
-"use client";
-import React from "react";
+'use client';
+import React, { useState, useEffect } from "react";
 import Navbar from "~/components/navbar/navbar";
 import { useGetFollowers } from "~/services/get-follower";
 import { useGetMessage } from "~/services/get-message";
 import Image from 'next/image';
-import { useRouter } from "next/navigation";
-const Message = () => {
-   const { data: useFollowUser =[], isLoading:followerLoading , error:followerError } = useGetFollowers();
-   const { data: Messages , isLoading:messageLoading , error:messageError } = useGetMessage();
-  
-     const router = useRouter();
-   
+import Chat from "./chat/page"; 
+
+export default function Message() {
+  const { data: followers = [], isLoading: fLoading, error: fError } = useGetFollowers();
+  const [search, setSearch] = useState("");
+  const [selectedFollower, setSelectedFollower] = useState<string | null>(null);
+
+  const filtered = followers.filter(f =>
+    f.following.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-hidden w-full px-4 sm:px-8 pb-5">
-     <Navbar title="Message" context={"Message"}/>
-      <div className="flex flex-row justify-between pt-5">
-        
-     
+    <div className="min-h-screen bg-gray-50 w-full px-4 sm:px-8 pb-5 ">
+      <Navbar title="Messages" context="Message" />
+      
+      <div className="mt-4 max-w-md mx-auto space-y-4 flex flex-col">
+       
+        <input
+          type="text"
+          placeholder="Search followers..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none"
+        />
 
+        <div className="bg-white rounded shadow divide-y overflow-hidden ">
+          {fLoading && <p className="p-4">Loading followers...</p>}
+          {fError && <p className="p-4 text-red-500">Error loading followers</p>}
+          {!fLoading && filtered.map(f => (
+            <div
+              key={f._id}
+              className={`flex items-center p-3 cursor-pointer hover:bg-gray-100 ${
+                selectedFollower === f.following._id ? 'bg-gray-200' : ''
+              }`}
+              onClick={() => setSelectedFollower(f.following._id)}
+            >
+              {f.following.profile ? (
+                <Image
+                  src={f.following.profile}
+                  width={40}
+                  height={40}
+                  alt={f.following.name}
+                  className="rounded-full"
+                />
+              ) : (
+                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300 text-lg uppercase">
+                  {f.following.name.charAt(0)}
+                </div>
+              )}
+              <span className="ml-3 font-medium">{f.following.name}</span>
+            </div>
+          ))}
+        </div>
 
-    
-<div className="mt-8 border bg-white w-full rounded-sm">
-  
-  <div className="w-full overflow-hidden">
-    <div className="flex mr-10 transition-transform duration-300 m-5 ">
-      <ul>
         
-          {followerLoading && <p>Loading mentors...</p>}
-          {followerError && (
-            <p className="text-red-500">
-              { 'Error loading folloers.'}
-            </p>
-          )}
-        {useFollowUser.map((follower) => (
-          <li key={follower._id} className="flex flex-col border  pt-5 text-secondary-500 m-4" >
-            <div className="flex flex-col ">
-           
-         
-            <div className="flex  gap-3 rounded-full flex-row">
-                      {follower.following.profile ? (
-                        <Image
-                          src={follower.following.profile}
-                          alt={`${follower.following.name} profile`}
-                          width={50}
-                          height={50}
-                          className="rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-lg uppercase">
-                          {follower.following.name.charAt(0).toUpperCase()}
-                        </div>
-                      )}
-                      
-            </div>
-             <div className="flex w-full h-10 rounded-md m-4 ">
-              <p className="text-black font-bold text-md justify-start ml-1">{follower.following.name}</p> 
-            </div>
-            </div>
-            
-           
-            
-            
-          </li>
-        ))}
-      </ul>
+       
+      </div>
+       {selectedFollower && (
+          <Chat receiverId={selectedFollower} />
+        )}
     </div>
-  </div>
-</div>
-
-</div>
-</div>
-    
-  
   );
-};
-
-export default Message ;
+}

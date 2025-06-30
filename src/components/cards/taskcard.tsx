@@ -5,50 +5,64 @@ import Image from "next/image";
 import { Clock, Star } from "lucide-react";
 
 export type TaskCardProps = {
-  taskId: string;
-  progress: number;    
-  status: string;
-  rating: number;
-  createdAt?: string;
-  updatedAt?: string;
+  _id: string;
+  title: string;
+  category: string;
   description?: string;
+  displayMedia: string;
+  timeToComplete:Number;
+  createdAt?: string;
+
+  createdBy: {
+    name: string;
+    ratings: number;
+  };
+  
+  progress?: number;
+  status?: string;
   teamImages?: string[];
 };
 
 const TaskCard: React.FC<TaskCardProps> = ({
-  taskId,
-  progress,
-  status,
-  rating,
-  createdAt,
-  updatedAt,
+  _id,
+  title,
+  category,
   description,
+  displayMedia,
+  createdAt,
+  timeToComplete,
+  createdBy,
+  progress = 50,
+  status = "in-progress",
   teamImages = [],
 }) => {
- 
   const formattedDate = createdAt
     ? new Date(createdAt).toLocaleDateString()
-    : 'No Date';
+    : "No Date";
 
   return (
     <div className="p-4 w-full max-w-sm bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border">
-   
-      <div className="w-full h-36 bg-gray-100 rounded-md flex items-center justify-center text-gray-400 select-none">
-       
-        <span className="text-lg font-semibold">Task {taskId}</span>
+      {/* Image */}
+      <div className="w-full h-36 bg-gray-100 rounded-md overflow-hidden relative">
+        <Image
+          src={displayMedia}
+          alt={title}
+          fill
+          className="object-cover"
+        />
       </div>
 
       {/* Task info */}
       <div className="mt-2">
         <h2 className="text-base font-semibold text-gray-800 truncate">
-          Task ID: {taskId}
+          {title}
         </h2>
-        <p className="text-sm text-gray-500 capitalize">Status: {status}</p>
-        <p className="text-sm text-gray-600 mt-1">
-          Rating: {rating} <Star className="inline w-4 h-4 text-yellow-400" />
-        </p>
+        <p className="text-sm text-gray-500 capitalize"> {category}</p>
+        
         {description && (
-          <p className="text-sm text-gray-600 mt-1 line-clamp-2">{description}</p>
+          <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+            {description}
+          </p>
         )}
       </div>
 
