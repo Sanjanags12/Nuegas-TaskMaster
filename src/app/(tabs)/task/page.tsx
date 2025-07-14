@@ -85,6 +85,7 @@ const Task = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-hidden">
+      {/*navbar */}
       <Navbar title="Explore Tasks" context="task" />
 
       <div className="max-w-screen-xl mx-auto bg-secondary-200">

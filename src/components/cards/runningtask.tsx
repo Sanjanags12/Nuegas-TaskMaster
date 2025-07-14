@@ -16,7 +16,7 @@ const RunningTask: React.FC<RunningTaskProps> = ({
   const percentage = Math.round((completed / totalTask) * 100);
 
   return (
-    /*jskdd*/
+    /*running task*/
     <div className="p-4 w-[200px] h-[200px] bg-black rounded-md shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden mx-10">
       <div className="flex flex-col h-full justify-between">
         <div>
